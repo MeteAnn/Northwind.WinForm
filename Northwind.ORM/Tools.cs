@@ -25,7 +25,40 @@ namespace Northwind.ORM
 			
 		}
 
+		public static bool ExecuteNonQuery(SqlCommand cmd)
+		{
 
+			try
+			{
+				if (cmd.Connection.State != System.Data.ConnectionState.Open)
+				
+					cmd.Connection.Open();
+				int etk = cmd.ExecuteNonQuery();
+
+				return etk > 0 ? true : false;
+
+			
+
+			}
+			catch (Exception)
+			{
+
+				return false;
+
+			}
+
+			finally
+			{
+
+				if (cmd.Connection.State != System.Data.ConnectionState.Closed)
+				{
+					cmd.Connection.Close();
+				}
+
+
+			}
+
+		}
 
 
 	}
